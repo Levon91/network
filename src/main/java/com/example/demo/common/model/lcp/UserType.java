@@ -1,5 +1,7 @@
 package com.example.demo.common.model.lcp;
 
+import javax.persistence.Entity;
+
 public enum UserType {
     REGULAR     (1),
     PREMIUM     (2);

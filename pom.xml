@@ -68,10 +68,15 @@
             <!--<artifactId>spring-boot-devtools</artifactId>-->
             <!--<scope>runtime</scope>-->
         <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>mysql</groupId>-->
+            <!--<artifactId>mysql-connector-java</artifactId>-->
+            <!--<scope>runtime</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <version>5.1.34</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -102,6 +107,19 @@
             <artifactId>liquibase-core</artifactId>
             <version>3.4.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <!-- Types that extend and augment the Java Collections Framework. -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons-collections.version}</version>
+        </dependency>
+
     </dependencies>
 
     <!--<dependencyManagement>-->
@@ -123,26 +141,19 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!--<plugin>-->
-                <!--<groupId>org.liquibase</groupId>-->
-                <!--<artifactId>liquibase-maven-plugin</artifactId>-->
-                <!--<version>3.3.2</version>-->
-                <!--<configuration>-->
-                    <!--<changeLogFile>com/example/demo/manager/db/sql/liquibase/dbChangeLog.xml</changeLogFile>-->
-                    <!--&lt;!&ndash;<propertyFile>application.properties</propertyFile>&ndash;&gt;-->
-                    <!--<driver>spring.datasource.driver-class-name</driver>-->
-                    <!--<url>spring.datasource.url</url>-->
-                    <!--<username>spring.datasource.username</username>-->
-                    <!--<password>spring.datasource.password</password>-->
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <changeLogFile>com/example/demo/manager/db/sql/liquibase/dbChangeLog.xml</changeLogFile>
+                    <propertyFile>application.properties</propertyFile>
+                    <driver>spring.datasource.driver-class-name</driver>
+                    <url>spring.datasource.url</url>
+                    <username>spring.datasource.username</username>
+                    <password>spring.datasource.password</password>
                     <!--<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>-->
-                <!--</configuration>-->
-                <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>mysql</groupId>-->
-                        <!--<artifactId>mysql-connector-java</artifactId>-->
-                        <!--<version>5.1.34</version>-->
-                    <!--</dependency>-->
-                <!--</dependencies>-->
+                </configuration>
                 <!--<executions>-->
                     <!--<execution>-->
                         <!--<phase>package</phase>-->
@@ -151,7 +162,7 @@
                         <!--</goals>-->
                     <!--</execution>-->
                 <!--</executions>-->
-            <!--</plugin>-->
+            </plugin>
         </plugins>
     </build>
 
