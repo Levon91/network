@@ -15,12 +15,12 @@ public class ServiceAvailable {
 
     @GetMapping
     public String availableGet() {
-        return "Service available";
+        return "Service available GET";
     }
 
     @PostMapping
     public String availablePost() {
-        return "Service available";
+        return "Service available POST";
     }
 
     @PostMapping
