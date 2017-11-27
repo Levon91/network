@@ -25,4 +25,18 @@ public enum UserType {
         }
         return null;
     }
+
+    public static UserType fromVal(int val) {
+        switch (val) {
+            case 1:
+                return UserType.REGULAR;
+
+            case 2:
+                return UserType.PREMIUM;
+
+            default:
+                throw new IllegalArgumentException("Value [" + val
+                        + "] not supported.");
+        }
+    }
 }

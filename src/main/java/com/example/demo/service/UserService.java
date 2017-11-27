@@ -56,7 +56,8 @@ public class UserService {
         }
         if (result.getResponseStatus() == null) {
             try {
-                user = userManager.addUser(new User(firstName, lastName, mobileNumber));
+                User toBeSaved = new User(firstName, lastName, mobileNumber);
+                user = userManager.addUser(toBeSaved);
                 UserDto userDto = userConverter.convert(user);
                 result.setUser(userDto);
                 result.setResponseStatus(ResponseStatus.SUCCESS);

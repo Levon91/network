@@ -2,9 +2,10 @@ package com.example.demo.model;
 
 import com.example.demo.common.model.lcp.UserStatus;
 import com.example.demo.common.model.lcp.UserType;
+import com.example.demo.common.util.converter.enums.UserStatusConverter;
+import com.example.demo.common.util.converter.enums.UserTypeConverter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -18,7 +19,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", insertable = false, updatable = false, nullable = false)
     private long id;
 
@@ -32,11 +33,13 @@ public class User implements Serializable {
     private String mobileNumber;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "user_type_id", nullable = false, insertable = false)
+    @Column(name = "user_type_id")
+    @Convert(converter = UserTypeConverter.class)
     private UserType userType;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "user_status_id", nullable = false, insertable = false)
+    @Column(name = "user_status_id")
+    @Convert(converter = UserStatusConverter.class)
     private UserStatus userStatus;
 
     public User() {
