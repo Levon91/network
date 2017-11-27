@@ -1,5 +1,10 @@
 package com.example.demo.common.model.lcp;
 
+/**
+ * Enum type for user status.
+ *
+ * @author <a href="mailto:lstonoyan@gmail.com">Levon Tonoyan</a>
+ */
 public enum UserStatus {
     ACTIVE(1),
     NOT_ACTIVATED(2),

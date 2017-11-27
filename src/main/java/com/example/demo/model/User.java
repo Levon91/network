@@ -4,6 +4,7 @@ import com.example.demo.common.model.lcp.UserStatus;
 import com.example.demo.common.model.lcp.UserType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -18,7 +19,7 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id", insertable = false, updatable = false, nullable = false)
     private long id;
 
     @Column(name = "first_name")
@@ -30,14 +31,12 @@ public class User implements Serializable {
     @Column(name = "mobile_number")
     private String mobileNumber;
 
-    @Column(name = "user_type_id")
     @Enumerated(EnumType.ORDINAL)
-    @JoinColumn(name = "id", nullable = false)
+    @Column(name = "user_type_id", nullable = false, insertable = false)
     private UserType userType;
 
-    @Column(name = "user_status_id")
     @Enumerated(EnumType.ORDINAL)
-    @JoinColumn(name = "id", nullable = false)
+    @Column(name = "user_status_id", nullable = false, insertable = false)
     private UserStatus userStatus;
 
     public User() {

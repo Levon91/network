@@ -1,10 +1,13 @@
 package com.example.demo.common.model.lcp;
 
-import javax.persistence.Entity;
-
+/**
+ * Enum type for user type.
+ *
+ * @author <a href="mailto:lstonoyan@gmail.com">Levon Tonoyan</a>
+ */
 public enum UserType {
-    REGULAR     (1),
-    PREMIUM     (2);
+    REGULAR(1),
+    PREMIUM(2);
 
     private int value;
 
