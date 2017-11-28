@@ -76,6 +76,7 @@ public class UserService {
                 result.setResponseStatus(ResponseStatus.SERVER_MAINTENANCE);
                 result.addMessage("Server unavailable");
             } catch (Exception e) {
+                System.out.println(e);
                 result.setResponseStatus(ResponseStatus.INTERNAL_ERROR);
                 result.addMessage("Internal server error");
             }
