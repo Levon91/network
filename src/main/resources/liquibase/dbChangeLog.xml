@@ -18,4 +18,11 @@
                  stripComments="false"/>
     </changeSet>
 
+    <changeSet id="update-2017-11-28" author="levon">
+        <sqlFile dbms="mysql"
+                 path="liquibase/sql/update-2017-11-28.sql"
+                 splitStatements="true"
+                 stripComments="false"/>
+    </changeSet>
+
 </databaseChangeLog>
