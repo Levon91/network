@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.AmazonSNSClient;
-import com.amazonaws.services.sns.model.MessageAttributeValue;
-import com.amazonaws.services.sns.model.PublishRequest;
-import com.amazonaws.services.sns.model.PublishResult;
+import com.amazonaws.services.sns.AmazonSNSClientBuilder;
+import com.amazonaws.services.sns.model.*;
 import com.example.demo.common.dto.ResponseStatus;
 import com.example.demo.common.dto.user.UserDto;
 import com.example.demo.common.exception.rs.ServerUnavailableException;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.example.demo.service.SmsService.sendSms;
 
 /**
  * The user service.
@@ -63,7 +67,7 @@ public class UserService {
                 User toBeSaved = new User(firstName, lastName, mobileNumber);
                 user = userManager.addUser(toBeSaved);
                 UserDto userDto = userConverter.convert(user);
-                String message = "Your verification code";
+                String message = "Your verification code is 123456";
                 sendSms(message, mobileNumber);
                 result.setUser(userDto);
                 result.setResponseStatus(ResponseStatus.SUCCESS);
@@ -79,20 +83,5 @@ public class UserService {
         return result;
     }
 
-    public static void sendSms(String message, String phoneNumber) {
-        AmazonSNSClient snsClient = new AmazonSNSClient();
-        Map<String, MessageAttributeValue> smsAttributes = new HashMap<>();
-        //<set SMS attributes>
-        sendSMSMessage(snsClient, message, phoneNumber, smsAttributes);
-    }
-
-    public static void sendSMSMessage(AmazonSNSClient snsClient, String message,
-                                      String phoneNumber, Map<String, MessageAttributeValue> smsAttributes) {
-        PublishResult result = snsClient.publish(new PublishRequest()
-                .withMessage(message)
-                .withPhoneNumber(phoneNumber)
-                .withMessageAttributes(smsAttributes));
-        System.out.println(result); // Prints the message ID.
-    }
 
 }
