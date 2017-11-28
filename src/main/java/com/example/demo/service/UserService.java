@@ -6,6 +6,7 @@ import com.example.demo.common.dto.user.UserDto;
 import com.example.demo.common.exception.rs.ServerUnavailableException;
 import com.example.demo.common.model.lcp.UserStatus;
 import com.example.demo.common.response_dto.UserResponseDto;
+import com.example.demo.common.util.Generator;
 import com.example.demo.common.util.converter.UserConverter;
 import com.example.demo.common.util.validator.CommonValidator;
 import com.example.demo.manager.impl.UserManager;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.example.demo.service.SmsService.sendSms;
+
 /**
  * The user service.
  *
@@ -25,11 +28,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/user")
 public class UserService {
 
-    @Autowired
     private UserManager userManager;
 
-    @Autowired
     private UserConverter userConverter;
+
+    @Autowired
+    public UserService(UserManager userManager, UserConverter userConverter) {
+        this.userManager = userManager;
+        this.userConverter = userConverter;
+    }
 
     @PostMapping
     @RequestMapping("/add")
@@ -61,11 +68,14 @@ public class UserService {
                     result.setMessage("Mobile number already exists");
                     return result;
                 }
-                User toBeSaved = new User(firstName, lastName, mobileNumber);
+                String pinCode = Generator.getDigits(5);
+                User toBeSaved = new User(firstName, lastName, mobileNumber, pinCode);
                 user = userManager.addUser(toBeSaved);
                 UserDto userDto = userConverter.convert(user);
-//                String message = "Your verification code is 123456";
-//                sendSms(message, mobileNumber);
+
+                String message = "Your pin code is " + pinCode;
+                sendSms(message, mobileNumber);
+
                 result.setUser(userDto);
                 result.setResponseStatus(ResponseStatus.SUCCESS);
                 result.setMessage("User successfully added");
@@ -99,12 +109,13 @@ public class UserService {
         if (result.getResponseStatus() == null) {
             try {
                 User user = userManager.findByMobileNumber(mobileNumber);
-                if (user.getPinCode() == null){
+                if (user.getPinCode() == null) {
                     result.setMessage("Pin code not found");
                     result.setResponseStatus(ResponseStatus.PIN_CODE_NOT_FOUND);
                 }
                 if (user.getPinCode().equals(pinCode)) {
-                    boolean isUpdated = userManager.updateUserStatus(mobileNumber, UserStatus.ACTIVE);
+                    user.setUserStatus(UserStatus.ACTIVE);
+                    boolean isUpdated = userManager.updateUser(user);
                     if (isUpdated) {
                         result.setMessage("User status updated to ACTIVE");
                         result.setResponseStatus(ResponseStatus.SUCCESS);
@@ -124,6 +135,4 @@ public class UserService {
         }
         return result;
     }
-
-
 }

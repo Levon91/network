@@ -18,9 +18,9 @@ public interface IUserManager {
 
     List<User> findAll() throws ServerUnavailableException;
 
-    boolean updateUserStatus(String mobileNumber, UserStatus userStatus) throws ServerUnavailableException;
+    boolean updateUser(User user) throws ServerUnavailableException;
 
-    boolean deleteByMobileNumber(String mobileNumber) throws ServerUnavailableException;
+    boolean deleteUserByMobileNumber(String mobileNumber) throws ServerUnavailableException;
 
     boolean isMobileNumberExists(String mobileNumber) throws ServerUnavailableException;
 }

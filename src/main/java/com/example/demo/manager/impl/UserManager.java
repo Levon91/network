@@ -1,7 +1,6 @@
 package com.example.demo.manager.impl;
 
 import com.example.demo.common.exception.rs.ServerUnavailableException;
-import com.example.demo.common.model.lcp.UserStatus;
 import com.example.demo.manager.IUserManager;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
@@ -20,8 +19,12 @@ import java.util.Optional;
 @Component
 public class UserManager implements IUserManager {
 
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public UserManager(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User addUser(User user) throws ServerUnavailableException {
@@ -72,24 +75,32 @@ public class UserManager implements IUserManager {
     }
 
     @Override
-    public boolean updateUserStatus(String mobileNumber, UserStatus userStatus) throws ServerUnavailableException {
+    public boolean updateUser(User user) throws ServerUnavailableException {
         boolean result = false;
         try {
-            result = userRepository.updateUserStatus(mobileNumber, userStatus);
-        }catch (EntityNotFoundException e){
+            User updatedUser = userRepository.save(user);
+            if (updatedUser != null) {
+                result = true;
+            }
+        } catch (EntityNotFoundException e) {
             System.out.println(e);
         }
         return result;
     }
 
     @Override
-    public boolean deleteByMobileNumber(String mobileNumber) throws ServerUnavailableException {
+    public boolean deleteUserByMobileNumber(String mobileNumber) throws ServerUnavailableException {
+        boolean result = false;
         try {
-            return userRepository.deleteByMobileNumber(mobileNumber);
+            User deletedUser = userRepository.deleteUserByMobileNumber(mobileNumber);
+            if (deletedUser != null) {
+                result = true;
+            }
         } catch (EntityNotFoundException e) {
             System.out.println(e);
-            return false;
+            result = false;
         }
+        return result;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.common.model.lcp.UserStatus;
 import com.example.demo.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -20,9 +18,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     List<User> findAll();
 
-    boolean updateUserStatus(String mobileNumber, UserStatus userStatus);
+//    boolean updateUser(User user);
 
-    boolean deleteByMobileNumber(String mobileNumber);
+    User deleteUserByMobileNumber(String mobileNumber);
 
     boolean existsByMobileNumber(String mobileNumber);
 }

@@ -52,11 +52,8 @@ public final class SmsService {
     private static void setDefaultSmsAttributes(AmazonSNSClient snsClient) {
         SetSMSAttributesRequest setRequest = new SetSMSAttributesRequest()
                 .addAttributesEntry("DeliveryStatusIAMRole", "arn:aws:iam::178519313808:role/role-sns")
-                .addAttributesEntry("DeliveryStatusSuccessSamplingRate", "5")
                 .addAttributesEntry("DefaultSenderID", "Network")
-                .addAttributesEntry("DefaultSMSType", "Promotional")
-                .addAttributesEntry("MonthlySpendLimit", "1")
-                .addAttributesEntry("UsageReportS3Bucket", "network-app-bucket");
+                .addAttributesEntry("DefaultSMSType", "Promotional");
         snsClient.setSMSAttributes(setRequest);
         Map<String, String> myAttributes = snsClient.getSMSAttributes(new GetSMSAttributesRequest())
                 .getAttributes();

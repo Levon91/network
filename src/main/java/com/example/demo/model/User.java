@@ -48,10 +48,11 @@ public class User implements Serializable {
         userStatus = UserStatus.NOT_ACTIVATED;
     }
 
-    public User(String firstName, String lastName, String mobileNumber) {
+    public User(String firstName, String lastName, String mobileNumber, String pinCode) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobileNumber = mobileNumber;
+        this.pinCode = pinCode;
         this.userType = UserType.REGULAR;
         this.userStatus = UserStatus.NOT_ACTIVATED;
     }
