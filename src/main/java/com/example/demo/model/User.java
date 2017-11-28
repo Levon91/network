@@ -32,12 +32,10 @@ public class User implements Serializable {
     @Column(name = "mobile_number")
     private String mobileNumber;
 
-    @Enumerated(EnumType.ORDINAL)
     @Column(name = "user_type_id")
     @Convert(converter = UserTypeConverter.class)
     private UserType userType;
 
-    @Enumerated(EnumType.ORDINAL)
     @Column(name = "user_status_id")
     @Convert(converter = UserStatusConverter.class)
     private UserStatus userStatus;

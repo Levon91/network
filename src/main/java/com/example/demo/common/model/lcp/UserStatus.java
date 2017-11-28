@@ -27,24 +27,4 @@ public enum UserStatus {
         }
         return null;
     }
-
-    public static UserStatus fromVal(int val) {
-        switch (val) {
-            case 1:
-                return UserStatus.ACTIVE;
-
-            case 2:
-                return UserStatus.NOT_ACTIVATED;
-
-            case 3:
-                return UserStatus.BLOCKED;
-
-            case 4:
-                return UserStatus.DELETED;
-
-            default:
-                throw new IllegalArgumentException("Value [" + val
-                        + "] not supported.");
-        }
-    }
 }
