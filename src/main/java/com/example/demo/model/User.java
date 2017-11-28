@@ -40,6 +40,9 @@ public class User implements Serializable {
     @Convert(converter = UserStatusConverter.class)
     private UserStatus userStatus;
 
+    @Column(name = "pin_code")
+    private String pinCode;
+
     public User() {
         userType = UserType.REGULAR;
         userStatus = UserStatus.NOT_ACTIVATED;
@@ -99,6 +102,14 @@ public class User implements Serializable {
 
     public void setUserStatus(UserStatus userStatus) {
         this.userStatus = userStatus;
+    }
+
+    public String getPinCode() {
+        return pinCode;
+    }
+
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
     }
 
     @Override

@@ -1,12 +1,14 @@
 package com.example.demo.manager.impl;
 
 import com.example.demo.common.exception.rs.ServerUnavailableException;
+import com.example.demo.common.model.lcp.UserStatus;
 import com.example.demo.manager.IUserManager;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,29 +30,76 @@ public class UserManager implements IUserManager {
 
     @Override
     public User findById(long id) throws ServerUnavailableException {
-        Optional<User> user = userRepository.findById(id);
-        return user.orElse(null);
+        try {
+            Optional<User> user = userRepository.findById(id);
+            return user.orElse(null);
+        } catch (EntityNotFoundException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     @Override
     public User findByFirstName(String firstName) throws ServerUnavailableException {
-        Optional<User> user = userRepository.findByFirstName(firstName);
-        return user.orElse(null);
+        try {
+            Optional<User> user = userRepository.findByFirstName(firstName);
+            return user.orElse(null);
+        } catch (EntityNotFoundException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     @Override
     public User findByMobileNumber(String mobileNumber) throws ServerUnavailableException {
-        Optional<User> user = userRepository.findByMobileNumber(mobileNumber);
-        return user.orElse(null);
+        try {
+            Optional<User> user = userRepository.findByMobileNumber(mobileNumber);
+            return user.orElse(null);
+        } catch (EntityNotFoundException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     @Override
     public List<User> findAll() throws ServerUnavailableException {
-        return userRepository.findAll();
+        try {
+            return userRepository.findAll();
+        } catch (EntityNotFoundException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    @Override
+    public boolean updateUserStatus(String mobileNumber, UserStatus userStatus) throws ServerUnavailableException {
+        boolean result = false;
+        try {
+            result = userRepository.updateUserStatus(mobileNumber, userStatus);
+        }catch (EntityNotFoundException e){
+            System.out.println(e);
+        }
+        return result;
     }
 
     @Override
     public boolean deleteByMobileNumber(String mobileNumber) throws ServerUnavailableException {
-        return userRepository.deleteByMobileNumber(mobileNumber);
+        try {
+            return userRepository.deleteByMobileNumber(mobileNumber);
+        } catch (EntityNotFoundException e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isMobileNumberExists(String mobileNumber) throws ServerUnavailableException {
+        boolean isExists = false;
+        try {
+            isExists = userRepository.existsByMobileNumber(mobileNumber);
+        } catch (EntityNotFoundException e) {
+            System.out.println(e);
+        }
+        return isExists;
     }
 }

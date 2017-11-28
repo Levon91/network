@@ -1,6 +1,7 @@
 package com.example.demo.manager;
 
 import com.example.demo.common.exception.rs.ServerUnavailableException;
+import com.example.demo.common.model.lcp.UserStatus;
 import com.example.demo.model.User;
 
 import java.util.List;
@@ -17,5 +18,9 @@ public interface IUserManager {
 
     List<User> findAll() throws ServerUnavailableException;
 
+    boolean updateUserStatus(String mobileNumber, UserStatus userStatus) throws ServerUnavailableException;
+
     boolean deleteByMobileNumber(String mobileNumber) throws ServerUnavailableException;
+
+    boolean isMobileNumberExists(String mobileNumber) throws ServerUnavailableException;
 }
