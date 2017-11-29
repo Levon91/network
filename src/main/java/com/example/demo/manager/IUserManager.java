@@ -20,6 +20,8 @@ public interface IUserManager {
 
     boolean updateUser(User user) throws ServerUnavailableException;
 
+    boolean updateUserPinCode(User user) throws ServerUnavailableException;
+
     boolean deleteUserByMobileNumber(String mobileNumber) throws ServerUnavailableException;
 
     boolean isMobileNumberExists(String mobileNumber) throws ServerUnavailableException;

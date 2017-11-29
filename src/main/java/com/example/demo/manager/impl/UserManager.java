@@ -89,6 +89,20 @@ public class UserManager implements IUserManager {
     }
 
     @Override
+    public boolean updateUserPinCode(User user) throws ServerUnavailableException {
+        boolean result = false;
+        try {
+            User updatedUser = userRepository.save(user);
+            if (updatedUser != null) {
+                result = true;
+            }
+        } catch (EntityNotFoundException e) {
+            System.out.println(e);
+        }
+        return result;
+    }
+
+    @Override
     public boolean deleteUserByMobileNumber(String mobileNumber) throws ServerUnavailableException {
         boolean result = false;
         try {

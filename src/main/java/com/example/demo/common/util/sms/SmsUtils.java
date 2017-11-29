@@ -8,7 +8,9 @@ import com.amazonaws.services.sns.model.PublishResult;
 import java.util.Map;
 
 /**
- * Created by Levon on 27.11.2017.
+ * The sms utils.
+ *
+ * @author <a href="mailto:lstonoyan@gmail.com">Levon Tonoyan</a>
  */
 public class SmsUtils {
     public static void sendSMSMessage(AmazonSNSClient snsClient, String message,

@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Sms service.
+ *
+ * @author <a href="mailto:lstonoyan@gmail.com">Levon Tonoyan</a>
+ */
 @Service
 @Scope(value = "singleton")
 public final class SmsService {

@@ -3,6 +3,11 @@ package com.example.demo.common.util;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * The common generator utility.
+ *
+ * @author <a href="mailto:lstonoyan@gmail.com">Levon Tonoyan</a>
+ */
 public final class Generator {
     /**
      * Enum type representation of generation types.

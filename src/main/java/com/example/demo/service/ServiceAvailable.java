@@ -10,21 +10,20 @@ import java.io.File;
  * @author <a href="mailto:lstonoyan@gmail.com">Levon Tonoyan</a>
  */
 @RestController
-@RequestMapping(value = "/available")
+@RequestMapping(value = "/service/available")
 public class ServiceAvailable {
 
-    @GetMapping
+    @RequestMapping(method = RequestMethod.GET)
     public String availableGet() {
         return "Service available GET";
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public String availablePost() {
         return "Service available POST";
     }
 
-    @PostMapping
-    @RequestMapping("/upload")
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String uploadFile(@RequestParam("name") String name,
                              @RequestParam(value = "file", required = false) File file) {
         return "redirect:uploadSuccess";
