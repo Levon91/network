@@ -18,8 +18,8 @@ import java.util.Map;
 @Scope(value = "singleton")
 public final class SmsService {
 
-    private static final String ACCESS_KEY = "AKIAJR7CLUD2W3I64G5Q";
-    private static final String SECRET_KEY = "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";
+    private static final String ACCESS_KEY = "access.key";
+    private static final String SECRET_KEY = "secret.key";
     private static AmazonSNSClient snsClient;
 
     public SmsService() {
@@ -28,7 +28,7 @@ public final class SmsService {
         setDefaultSmsAttributes(snsClient);
     }
 
-    public static void sendSms(String message, String phoneNumber) {
+    static void sendSms(String message, String phoneNumber) {
 //        AmazonSNSClientBuilder snsClientBuilder = AmazonSNSClientBuilder.standard()
 //                .withRegion(Regions.AP_SOUTH_1)
 //                .withCredentials(new ProfileCredentialsProvider());
