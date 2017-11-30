@@ -1,7 +1,10 @@
 package com.example.demo.service;
 
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sns.AmazonSNSClient;
+import com.amazonaws.services.sns.AmazonSNSClientBuilder;
 import com.amazonaws.services.sns.model.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -18,24 +21,24 @@ import java.util.Map;
 @Scope(value = "singleton")
 public final class SmsService {
 
-    private static final String ACCESS_KEY = "access.key";
-    private static final String SECRET_KEY = "secret.key";
+    private static final String ACCESS_KEY = "AKIAJK3GMMKU5CUYFO5Q";
+    private static final String SECRET_KEY = "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";
     private static AmazonSNSClient snsClient;
 
-    public SmsService() {
+    private SmsService() {
         BasicAWSCredentials credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
         snsClient = new AmazonSNSClient(credentials);
         setDefaultSmsAttributes(snsClient);
     }
 
-    static void sendSms(String message, String phoneNumber) {
-//        AmazonSNSClientBuilder snsClientBuilder = AmazonSNSClientBuilder.standard()
-//                .withRegion(Regions.AP_SOUTH_1)
-//                .withCredentials(new ProfileCredentialsProvider());
+    public static void sendSms(String message, String phoneNumber) {
+        AmazonSNSClientBuilder snsClientBuilder = AmazonSNSClientBuilder.standard()
+                .withRegion(Regions.AP_SOUTH_1)
+                .withCredentials(new ProfileCredentialsProvider());
 
-//        AmazonSNSClient snsClient = (AmazonSNSClient) snsClientBuilder.build();
+        AmazonSNSClient snsClient = (AmazonSNSClient) snsClientBuilder.build();
         Map<String, MessageAttributeValue> smsAttributes = new HashMap<>();
-//        setDefaultSmsAttributes(snsClient);
+        setDefaultSmsAttributes(snsClient);
         sendSMSMessage(snsClient, message, phoneNumber, smsAttributes);
     }
 
