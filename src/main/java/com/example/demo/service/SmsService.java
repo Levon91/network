@@ -21,8 +21,8 @@ import java.util.Map;
 @Scope(value = "singleton")
 public final class SmsService {
 
-    private static final String ACCESS_KEY = "AKIAJK3GMMKU5CUYFO5Q";
-    private static final String SECRET_KEY = "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";
+    private static final String ACCESS_KEY = "";
+    private static final String SECRET_KEY = "";
     private static AmazonSNSClient snsClient;
 
     private SmsService() {
